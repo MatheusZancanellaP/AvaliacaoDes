@@ -5,12 +5,13 @@ import pandas as pd
 import scipy
 import seaborn as sns
 from scipy.stats import norm
-
+# a)
 array = []
 
 with open('saida.csv', 'r') as arq:
     for number in arq:
         array.append(int(number))
+# c)
 x = np.sort(array)
 y = 1. * np.arange(len(array))/(len(array) - 1)
 bins = [1024, 10240, 102400, 1048576, 10485760, 104857600]
@@ -33,6 +34,7 @@ stddev = np.std(array)
 median = np.median(array)
 function_cv = lambda x: np.std(x, ddof=1) / np.mean(x) * 100
 cv = function_cv(array)
+# b)
 first_quantile = np.quantile(array, 0.25)
 second_quantile = np.quantile(array, 0.50)
 third_quantile = np.quantile(array, 0.75)
@@ -51,6 +53,7 @@ print(median/1048576)
 print("CV(MB):")
 print(cv)
 print(x)
+# c)
 data_set = pd.read_csv("saida.csv")
 data = pd.DataFrame(data_set)
 res = sns.kdeplot(x);
@@ -62,6 +65,6 @@ res.set_xticklabels(labels[0:] ,rotation=0, horizontalalignment="center")
 res.set_yticklabels(ylabels[0:] , rotation=0)
 plt.show()
 
-
+# d) Pela análise da CDF e da PDF, podemos observar que o tamanho dos arquivos está bem concentrado em arquivos pequenos(menores do que 1 MB). Isso ocorre, principalmente, pela alta concentração de arquivos de texto e imagens presentes na área de trabalho analisada.
 
 
